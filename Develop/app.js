@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -33,3 +34,30 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+function init() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "title",
+            message: questions[0]
+          },
+          {
+            type: "input",
+            name: "description",
+            message: questions[1]
+          }
+        ]).then(function(data) { 
+            const markDown = generateMarkdown(data);
+
+            return writeFileAsync("generatedReadme.md", markDown)
+            
+        })
+        .then(function() {
+          console.log("Successfully wrote to generatedReadme.md");
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
