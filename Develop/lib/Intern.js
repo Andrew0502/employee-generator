@@ -15,33 +15,33 @@ class Intern extends Employee {
     }
 }
 
-async function createManager() {
-    const res = await inquirer.prompt(managerQuestions);
-    return new Manager(res.name, res.id, res.email, res.officeNumber);
+async function createIntern() {
+    const res = await inquirer.prompt(internQuestions);
+    return new Intern(res.name, res.id, res.email, res.school);
 }
 
-const managerQuestions = [
+const internQuestions = [
     {
         name: "name",
         type: "input",
-        message: "What is this manager's name?"
+        message: "What is this intern's name?"
     },
     {
         name: "id",
         type: "input",
-        message: "What is this manager's id?"
+        message: "What is this intern's id?"
     },
     {
         name: "email",
         type: "input",
-        message: "What is this manager's email?"
+        message: "What is this intern's email?"
     },
     {
-        name: "officeNumber",
+        name: "school",
         type: "input",
-        message: "What is this manager's office number?"
+        message: "What is this intern's school?"
     },
     
  ]
 
-module.exports = Intern;
+module.exports = {Intern, createIntern};
