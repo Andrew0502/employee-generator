@@ -52,26 +52,25 @@ async function init() {
             if(response.title === "manager"){
               Manager.createManager().then((man) => {
                 teamMembers.push(man);
-                console.log(teamMembers);
+                // console.log(teamMembers);
                 init();
               });
             } 
             else if(response.title === "engineer"){
               Engineer.createEngineer().then((eng) =>{
                 teamMembers.push(eng);
-                console.log(teamMembers);
+                // console.log(teamMembers);
                 init();
               });
             }
             else if(response.title === "intern"){
               Intern.createIntern().then((int) =>{
                 teamMembers.push(int);
-                console.log(teamMembers);
+                // console.log(teamMembers);
                 init();
               });
             } 
             else if (response.title === "I'm finished.") {
-              console.log("test-1");
                 fs.writeFile(outputPath, render(teamMembers), function(error){
                   if (error){
                     throw error
