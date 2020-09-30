@@ -46,7 +46,7 @@ async function init() {
             type: "list",
             name: "title",
             job: "What position does this team member hold?",
-            choices: ["manager", "engineer", "intern", "no new team members"]
+            choices: ["manager", "engineer", "intern", "I'm finished."]
           }
         ]).then((response) => {
             if(response.title === "manager"){
@@ -54,44 +54,35 @@ async function init() {
                 teamMembers.push(man);
                 console.log(teamMembers);
                 init();
-              })
+              });
             } 
             else if(response.title === "engineer"){
               Engineer.createEngineer().then((eng) =>{
                 teamMembers.push(eng);
                 console.log(teamMembers);
                 init();
-              })
+              });
             }
             else if(response.title === "intern"){
               Intern.createIntern().then((int) =>{
                 teamMembers.push(int);
                 console.log(teamMembers);
                 init();
-              })
+              });
+            } 
+            else if (response.title === "I'm finished.") {
+              console.log("test-1");
+                fs.writeFile(outputPath, render(teamMembers), function(error){
+                  if (error){
+                    throw error
+                  }
+                });
+                
             }
-
-
-
-
-
-        });
-        
-        
-        
-        
-        
-        
-        // (function(data) { 
-        //     const output = generateOutput(data);
-
-        //     return writeFileAsync("team.html", output);
             
-        // })
-        // .then(function() {
-        //   console.log("Successfully wrote to index.html");
-        // })
-        // .catch(function(err) {
-        //   console.log(err);
-        // });
-    }
+              
+            })
+            .catch((error) => {
+              console.log(error)
+            });
+        };
