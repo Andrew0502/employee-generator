@@ -11,6 +11,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
 
+const teamMembers = [];
+
+init();
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -36,28 +40,58 @@ const Employee = require("./lib/Employee");
 // for the provided `render` function to work! ```
 
 
-function init() {
+async function init() {
     return inquirer.prompt([
         {
-            type: "input",
+            type: "list",
             name: "title",
-            message: questions[0]
-          },
-          {
-            type: "input",
-            name: "description",
-            message: questions[1]
+            job: "What position does this team member hold?",
+            choices: ["manager", "engineer", "intern", "no new team members"]
           }
-        ]).then(function(data) { 
-            const markDown = generateMarkdown(data);
+        ]).then((response) => {
+            if(response.title === "manager"){
+              Manager.createManager().then((man) => {
+                teamMembers.push(man);
+                console.log(teamMembers);
+                init();
+              })
+            } 
+            else if(response.title === "engineer"){
+              Engineer.createEngineer().then((eng) =>{
+                teamMembers.push(eng);
+                console.log(teamMembers);
+                init();
+              })
+            }
+            else if(response.title === "intern"){
+              Intern.createIntern().then((int) =>{
+                teamMembers.push(int);
+                console.log(teamMembers);
+                init();
+              })
+            }
 
-            return writeFileAsync("generatedReadme.md", markDown)
-            
-        })
-        .then(function() {
-          console.log("Successfully wrote to generatedReadme.md");
-        })
-        .catch(function(err) {
-          console.log(err);
+
+
+
+
         });
+        
+        
+        
+        
+        
+        
+        // (function(data) { 
+        //     const output = generateOutput(data);
+
+        //     return writeFileAsync("team.html", output);
+            
+        // })
+        // .then(function() {
+        //   console.log("Successfully wrote to index.html");
+        // })
+        // .catch(function(err) {
+        //   console.log(err);
+        // });
     }
