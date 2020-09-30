@@ -18,7 +18,7 @@
   * [Questions](#Questions)
 
 ## Installation
-  Download ont your machine, make sure you have npm inquirer, and express installed.
+  Download ont your machine, make sure you have npm inquirer, jest, and express installed.
 
 ## Usage
   Run via command line using "node app.js".
